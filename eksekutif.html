@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kabar Berita Remaja</title>
+    <link rel="shortcut icon" href="Group 26.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .container {
+            margin-top: 20px;
+            max-width: 1000px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            justify-content: space-between;
+            margin: auto;
+        }
+
+        .container h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        .container p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+            text-indent: 20px;
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 1000px;
+            width: 100%;
+            height: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .slides {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        img .slides{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        /* Header Styles */
+        .header {
+            background-color: #ff0000;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+    }
+
+        .logo-image {
+            width: 40px;  /* Sesuaikan ukuran sesuai kebutuhan */
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;  /* Membuat logo berbentuk lingkaran, hapus jika tidak diperlukan */
+            object-fit: cover;  /* Memastikan gambar tetap proporsional */
+    }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: none;
+            width: 300px;
+            background-color: #fff;
+            color: white;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            background-color: #000;
+            padding: 0.5rem 2rem;
+            border-top: 1px solid #333;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: space-between;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-item a:hover {
+            color: #ff4444;
+        }
+
+        /* Trending Section */
+        .trending {
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 0 2rem;
+        }
+
+        .trending-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            justify-content: space-between;
+        }
+
+        .trending-label {
+            color: #ff4444;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .trending-tag {
+            background-color: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .trending-tag:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* News Grid */
+        .news-grid {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            justify-content: space-between;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .news-card-inner {
+            text-decoration: none;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 1rem;
+        }
+
+        .news-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .news-excerpt {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .nav-content {
+                overflow-x: auto;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div style="
+                display: flex; 
+                align-items: center;
+            ">
+                <img src="Group 26.png" alt="Logo" style="height: 50px;">
+                <span style="
+                font-size: 30px; 
+                font-weight: bold; 
+                margin-left: 10px;
+                color: #fff;
+                ">Eksekutif</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Cari tokoh, topik atau peristiwa">
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-content">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html">Home</a></li>
+                <li class="nav-item"><a href="eksekutif.html">Eksekutif</a></li>
+                <li class="nav-item"><a href="legislatif.html">Legislatif</a></li>
+                <li class="nav-item"><a href="yudikatif.html">Yudikatif</a></li>
+                <li class="nav-item"><a href="tni.html">TNI-Polri</a></li>
+                <li class="nav-item"><a href="sosial.html">Sosial</a></li>
+                <li class="nav-item"><a href="budaya.html">Budaya</a></li>
+                <li class="nav-item"><a href="ekonomi.html">Ekonomi</a></li>
+                <li class="nav-item"><a href="pemuda.html">Pemuda</a></li>
+                <li class="nav-item"><a href="olahraga.html">Olahraga</a></li>
+                <li class="nav-item"><a href="pariwisata.html">Pariwisata</a></li>
+                <li class="nav-item"><a href="kesehatan.html">Kesehatan</a></li>
+                <li class="nav-item"><a href="musik.html">Musik</a></li>
+                <li class="nav-item"><a href="agama.html">Agama</a></li>
+                <li class="nav-item"><a href="dunia.html">Dunia</a></li>
+                <li class="nav-item"><a href="lingkungan.html">Lingkungan</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="trending">
+        <div class="trending-content">
+            <span class="trending-label">Trending:</span>
+            <span class="trending-tag">Imlek</span>
+            <span class="trending-tag">Emilia Contessa</span>
+            <span class="trending-tag">Prabowo Subianto</span>
+            <span class="trending-tag">Coretax</span>
+            <span class="trending-tag">Emilia Cotessa Meninggal</span>
+        </div>
+    </section>
+
+    <main>
+        <div class="slideshow-container">
+            <img class="slides" src="eksekutif1 (3).jpeg" alt="Foto 3">
+            <img class="slides" src="eksekutif1 (4).jpeg" alt="Foto 3">
+            
+            <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+            <button class="next" onclick="plusSlides(1)">&#10095;</button>
+        </div>
+    </main>
+    <div class="container">
+        <h1>Penasehat Khusus Presiden RI Bapak Jendral (Pur) Wiranto Buka Konvensi Kirab Remaja Nasional 2025 di Gedung RRI</h1>
+        <p>Gedung RRI Jakarta menjadi saksi dibukanya Konvensi Kirab Remaja Nasional 2025. Kegiatan yang dihadiri oleh ratusan remaja dari berbagai daerah ini resmi dibuka oleh Penasehat Khusus Presiden Republik Indonesia, Jenderal (Purn) Wiranto, rabu (22/1). Kehadiran beliau dalam acara tersebut bukan hanya sebagai bentuk dukungan terhadap perkembangan kegiatan kirab remaja, tetapi juga sebagai saksi perjalanan panjang yang telah dilalui sejak awal mula acara ini digelar.</p>
+        <p>Dalam sambutannya, Jenderal (Purn) Wiranto menyampaikan rasa terharunya saat mendengar teriakan "REMAJA" yang disambut dengan "JAYA" oleh seluruh peserta konvensi. Teriakan penuh semangat tersebut menggema di seluruh ruangan, mencerminkan antusiasme para remaja yang hadir dalam kegiatan penting ini. Beliau mengungkapkan, bahwa dirinya merupakan bagian dari perjalanan sejarah kirab remaja sejak pertama kali dilaksanakan pada tahun 1980-an dan 1990-an.</p>
+        <p>“Pada waktu itu, saya sebagai ajudan presiden, sering mengikuti kegiatan kirab remaja, bahkan saya masih ingat bagaimana ribuan peserta berkumpul di Gelora Bung Karno, membawa semangat kebersamaan dan cinta tanah air,” kenang Wiranto.</p>
+        <p>Kirab Remaja Nasional sendiri merupakan kegiatan yang diinisiasi untuk menumbuhkan semangat nasionalisme dan persatuan di kalangan generasi muda Indonesia. Acara ini juga menjadi wadah untuk mengasah kepemimpinan dan keterampilan remaja, yang diharapkan dapat berkontribusi dalam pembangunan bangsa.</p>
+        <p>Bapak Wiranto kemudian melanjutkan pesan penting kepada seluruh peserta konvensi, yaitu pentingnya bersatu untuk membangun Indonesia menuju Indonesia Emas 2045. “Kita harus bekerja bersama, menghilangkan perbedaan, dan bergotong-royong dalam membangun negeri ini. Ingat, Indonesia Emas 2045 tidak hanya menjadi impian, tetapi harus diwujudkan dengan usaha keras dan kerja sama dari seluruh elemen bangsa, terutama generasi muda seperti kalian,” ujar beliau dengan penuh semangat.</p>
+        <p>Namun, dalam perjalanannya, beliau juga mengingatkan adanya tantangan besar yang harus dihadapi oleh bangsa Indonesia, baik ancaman dari dalam negeri maupun luar negeri. Oleh karena itu, beliau menekankan pentingnya ketahanan negara, yang tidak hanya bergantung pada kekuatan fisik, tetapi juga pada persatuan, integritas, dan kesiapan generasi muda untuk menghadapi segala bentuk tantangan.</p>
+        <p>Tak hanya itu, Bapak Wiranto juga menyampaikan pesan kepada para pemimpin muda yang hadir dalam konvensi ini, agar mempersiapkan diri dengan baik untuk menjadi pemimpin masa depan. “Pemimpin harus memiliki STMJ: Sadar akan masalah dan tugasnya, Tahu bagaimana cara mengatasi masalah, dan Mengerti cara mengatasi masalah. Pemimpin juga harus men-Jamin bahwa dirinya tidak akan mengingkari sumpah jabatannya. Semua itu menjadi landasan dalam memimpin negeri ini ke arah yang lebih baik,” tegasnya.</p>
+        <p>Sebelum mengakhiri sambutannya, Bapak Wiranto menyampaikan apresiasi yang tinggi terhadap seluruh peserta konvensi yang telah menunjukkan komitmen dan semangat tinggi untuk menjadi bagian dari perubahan positif di Indonesia. Beliau berharap, kegiatan ini dapat menjadi momentum untuk memperkuat semangat kebangsaan, persatuan, dan integritas di kalangan remaja Indonesia.</p>
+        <p>Konvensi Kirab Remaja Nasional 2025 ini tidak hanya dihadiri oleh perwakilan remaja dari berbagai daerah juga hadir beberapa Ormas yang ada di DKI Jakarta, tetapi juga diwarnai dengan berbagai kegiatan inspiratif yang dirancang untuk mengasah potensi dan kepemimpinan generasi muda. Semangat yang ditunjukkan oleh peserta menjadi indikasi bahwa masa depan Indonesia akan cerah dengan peran serta generasi muda yang aktif dan penuh dedikasi.</p>
+    </div>
+    
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        
+        function showSlides(n) {
+            let slides = document.getElementsByClassName("slides");
+            if (n > slides.length) { slideIndex = slides.length; }
+            if (n < 1) { slideIndex = 1; }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+        
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+    </script>
+</body>
+</html>

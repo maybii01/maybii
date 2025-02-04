@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kabar Berita Remaja</title>
+    <link rel="shortcut icon" href="Group 26.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .container {
+            margin-top: 20px;
+            max-width: 1000px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            justify-content: space-between;
+            margin: auto;
+        }
+
+        .container h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .container h2 {
+            font-size: 15px;
+            font-style: italic;
+            color: #898989;
+            margin-bottom: 20px;
+        }
+        .container p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+            text-indent: 20px;
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 1000px;
+            width: 100%;
+            height: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .slides {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        img .slides{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        /* Header Styles */
+        .header {
+            background-color: #ff0000;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+    }
+
+        .logo-image {
+            width: 40px;  /* Sesuaikan ukuran sesuai kebutuhan */
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;  /* Membuat logo berbentuk lingkaran, hapus jika tidak diperlukan */
+            object-fit: cover;  /* Memastikan gambar tetap proporsional */
+    }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: none;
+            width: 300px;
+            background-color: #fff;
+            color: white;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            background-color: #000;
+            padding: 0.5rem 2rem;
+            border-top: 1px solid #333;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: space-between;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-item a:hover {
+            color: #ff4444;
+        }
+
+        /* Trending Section */
+        .trending {
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 0 2rem;
+        }
+
+        .trending-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            justify-content: space-between;
+        }
+
+        .trending-label {
+            color: #ff4444;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .trending-tag {
+            background-color: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .trending-tag:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* News Grid */
+        .news-grid {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            justify-content: space-between;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .news-card-inner {
+            text-decoration: none;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 1rem;
+        }
+
+        .news-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .news-excerpt {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .nav-content {
+                overflow-x: auto;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div style="
+                display: flex; 
+                align-items: center;
+            ">
+                <img src="Group 26.png" alt="Logo" style="height: 50px;">
+                <span style="
+                font-size: 30px; 
+                font-weight: bold; 
+                margin-left: 10px;
+                color: #fff;
+                ">Lingkungan</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Cari tokoh, topik atau peristiwa">
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-content">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="index.html">Home</a></li>
+                <li class="nav-item"><a href="eksekutif.html">Eksekutif</a></li>
+                <li class="nav-item"><a href="legislatif.html">Legislatif</a></li>
+                <li class="nav-item"><a href="yudikatif.html">Yudikatif</a></li>
+                <li class="nav-item"><a href="tni.html">TNI-Polri</a></li>
+                <li class="nav-item"><a href="sosial.html">Sosial</a></li>
+                <li class="nav-item"><a href="budaya.html">Budaya</a></li>
+                <li class="nav-item"><a href="ekonomi.html">Ekonomi</a></li>
+                <li class="nav-item"><a href="pemuda.html">Pemuda</a></li>
+                <li class="nav-item"><a href="olahraga.html">Olahraga</a></li>
+                <li class="nav-item"><a href="pariwisata.html">Pariwisata</a></li>
+                <li class="nav-item"><a href="kesehatan.html">Kesehatan</a></li>
+                <li class="nav-item"><a href="musik.html">Musik</a></li>
+                <li class="nav-item"><a href="agama.html">Agama</a></li>
+                <li class="nav-item"><a href="dunia.html">Dunia</a></li>
+                <li class="nav-item"><a href="lingkungan.html">Lingkungan</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="trending">
+        <div class="trending-content">
+            <span class="trending-label">Trending:</span>
+            <span class="trending-tag">Imlek</span>
+            <span class="trending-tag">Emilia Contessa</span>
+            <span class="trending-tag">Prabowo Subianto</span>
+            <span class="trending-tag">Coretax</span>
+            <span class="trending-tag">Emilia Cotessa Meninggal</span>
+        </div>
+    </section>
+
+    <main>
+        <div class="slideshow-container">
+            <img class="slides" src="lingkungan (1).jpeg" alt="Foto 3">
+            <img class="slides" src="lingkungan (2).jpeg" alt="Foto 3">
+            
+            <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+            <button class="next" onclick="plusSlides(1)">&#10095;</button>
+        </div>
+    </main>
+    <div class="container">
+        <h1>BEM UNUJA Lakukan Monitoring dan Evaluasi Berbasis Digital di Area Penanaman Mangrove Pesisir Laut Kabupaten Probolinggo</h1>
+        <h2>Probolinggo, Jum’at 31 Jan 2025</h2>
+        <p>Badan Eksekutive Mahasiswa Universitas Nurul Jadid (BEM UNUJA) kabupaten Probolinggo Jawa Timur melakukan Monitoring dan Evaluasi tanaman Mangrove dengan laporan berbasis Digital.</p>
+        <p>Program penanaman awal Mangrove dipesisir Pantai utara kabupaten Probolinggo Jawa Timur dilakukan pada tanggal 12 Januari 2025, tepatnya di Pantai Harmoni desa Binor dan desa Sumberejo, hasil Monev menunjukan perkembangan pertumbuhan Mangrove yang siknifikan, hal ini bisa diketahu melalui laporan berbasis digital yang di ciptakan Mahasiswa UNUJA, laporan berbasis digital ini bisa dipantau secara umum, hal ini sangat membantu bagi pecinta lingkungan civitas akademi Universitas Nurul Jadid, maupun P4NJ (Pembantu Pengurus Pondok Pesantren Nurul Jadid) wadah alumni Pondok Pesanren Nurul Jadid Paiton yang tersebar di seluruh wilayah Indonesia.</p>
+        <p>Pengambilan data awal dilakukan pada waktu tanam yakni tanggal 12 Januari, sementara setiap hari Jum’at dilakukan input data, dan pada hari ini Jum’at 31 Januari 2025, MONEV dilakukan untuk yang ketiga kali dengan Random Sampling, setiap tanaman di ukur ketebalan batang dengan Sketmat Digital agar diketahui pertumbuhan ketebalan batang pohon Mangrove, serta diukur ketinggianya agar diketahui petumbuhan dalam kurun waktu tertentu.</p>
+        <p>Ide MONEV BERBASIS DIGITAL ini bermula Ketika Aminurrohman yang biasa disapa Aminur Ketua BEM UNUJA menghadap KH. Faiz, M.Fil.l ketua Yayasan Pondok Pesantren Nurul Jadid Paiton, Aminur selaku Ketua BEM UNUJA menyampaikan rencana kegiatan BEM peduli lingkungan dengan penanaman Mangrove dipesisir Pantai utara kabupaten probolinggo, KH. Faiz mendukung rencana BEM UNUJA dalam melestarikan alam khususnya disepanjang Pantai utara kab Probolinggo dengan syarat ada Monitoring dan Evaluasi berkala berbasis DIGITAL.</p>
+        <p>Selain penanaman pohon Mangrove dipesisir Pantai utara kab Probolinggo BEM UNUJA juga melakukan penanaman pohon keras jenis Nangka dan Sukun dilahan Perhutani KPH Probolinggo yang berjarak + 5 Km dari Pantai Harmoni, dalam sistem laporanya sama seperti pohon Mangrove, untuk mengetahui Tingkat kesuksesan penanaman pohon BEM UNUJA melibatkan aktivis lingkungan, tokoh masyarakat serta Perusahaan disekitar PLTU Paiton yaitu PT. POMI.</p>
+        <p>Bibit ketiga pohon, yakni Mangrove 1.500, Nangka 700 dan Sukun 50 di support oleh PT. POMI (PT. Paiton Operation & Maintanance Indonesia), Dalam WA grup TEAM MONEV BEM UNUJA, Lubab selaku perwakilan PT. POMI menuliskan “Program ini bisa kita gunakan untuk laporan capaian keberhasilan program penghijauan, kita capture keberhasilan tumbuh tanaman yang kita tanam. Selama ini jarang yang menggunakan, apalagi selama ini banyak program penghijauan hanya sebatas ceremony, setelah ceremony selesai atau wes bubar, entah tanamannya mati atau hidup jarang di lihat. Sebisa mungkin bagaimana generasi kita lebih perduli terhadap apa yang kita kerjakan, bukan semata kita lakukan hari ini. Salam lestari, Salam Konservasi”.</p>
+        <p>Sementara itu Mbah Aziz yang dikenal sebagai pegiat lingkungan di kabupaten Probolinggo ikut hadir bersama Haji Masruki tokoh Masyarakat desa Binor dalam Monev kali ini, Ketika awak media meminta tanggapan tentang konservasi alam berbasis digital khususnya pesisir Pantai utara kab Probolinggo Mbah Aziz memberi 2 jempol “Ini terobosan baru, bukan masalah tanamnya, tetapi laporan berkelanjutan ini yang baru bagi saya selama menjadi pegiat lingkungan, artinya ini transparan, berapa jumlah pohon yang ditanam lalu berapa yang mati, berapa pula yang ditambal sulam serta berapa presentase pertumbuhan dalam kurun waktu tertentu”.</p>
+        <p>Selain Mbah Aziz, Haji Masruki dan Aminur Ketua BEM UNUJA, nampak pembimbing program konservasi Eddy Sis berada di area pesisir Pantai Harmoni, Eddy Sis terpantau memberi arahan agar sampah yang terseret dari laut dan tersangkut di bambu penyangga bibit pohon Mangrove segera dibersikan karena akan menganggu pertumbuhan tanaman dan juga kurang sedap dipandang, Eddy Sis juga mengatakan pentingnya memberi nomor pada tiap pohon, “Hal ini penting dilakukan agar kita bisa mengetahui sejauh mana tingkat pertumbuhan antar pohon, serta berapa jumlah yang masih bertahan hidup dalam kurun waktu 6 bulan kedepan” tegasnya.</p>
+    </div>
+    
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        
+        function showSlides(n) {
+            let slides = document.getElementsByClassName("slides");
+            if (n > slides.length) { slideIndex = slides.length; }
+            if (n < 1) { slideIndex = 1; }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+        
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+    </script>
+</body>
+</html>
